@@ -1,4 +1,4 @@
-from flask import Flask, redirect
+from flask import Flask, redirect, url_for
 
 # para levantar el servidor podemos instalar la libreria python-dotenv,
 # creamos el archivo .env y en el las variables de entorno necesarias
@@ -28,11 +28,10 @@ def user(name=None, id=None):
 @app.route('/login/<name>')
 def login(name=None):
     if name is not None:
-        return redirect(f"/usuario/{name}")
+        return redirect(url_for("user"))
     else:
         return "<h1>Ingrese su nombre</h1>"
 
-        
 
 
 # if __name__ == "__main__":
