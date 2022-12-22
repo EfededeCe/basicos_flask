@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/styles.css") }}">
+    <title>App Flask</title>
+</head>
+<body>
+    <div class="container">
+        <nav class="menu">
+            <img src="{{ url_for("static", filename="imgs/flask.png") }}" alt="Logo Flask" width="75px">
+            <ul class="menu-links">
+                <li> <a href="#">Inicio</a> </li>
+                <li> <a href="#">Usuarios</a> </li>
+                <li> <a href="#">Login</a> </li>
+            </ul>
+        </nav>
+
+        <h1>Ingrese su nombre y contraseña</h1>
+
+        {% with messages = get_flashed_messages(with_categories = True) %}
+
+        {% if messages %}
+            <ul class="messages">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% endwith %}
+
+        <main>
+            <form method="POST">
+                <label for="username">Usuario</label>
+                <input type="text" name="username" id="username" class="label-form">
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" id="password" class="label-form">
+                <input type="submit" value="Enviar" class="input-form">
+            </form>
+        </main>
+
+    </div>
+
+    <script src="{{ url_for("static", filename="js/main.js") }}"></script>
+</body>
+</html>
