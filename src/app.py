@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, request
+from flask import Flask, redirect, url_for, request, render_template
 
 # para levantar el servidor podemos instalar la libreria python-dotenv,
 # creamos el archivo .env y en el las variables de entorno necesarias
@@ -9,9 +9,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return """
-    <h1>Hola flask</h1>
-    """
+    return render_template("index.html")
 
 @app.route('/usuario/')
 @app.route('/usuario/<string:name>')
@@ -24,20 +22,25 @@ def user(name=None, id=None):
     else:
         return 'Hola, por favor registrese'
 
+
 @app.route('/login/', methods=["GET","POST"])
 def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
         if username and password:
-            return redirect(url_for("user", name=username))
+            return redirect(url_for("dashboard", name=username))
     else:
-        return """<h1>Ingrese su nombre y contraseña</h1>
-        <form method="POST">
-            <input type="text" name="username">
-            <input type="password" name="password">
-            <input type="submit" value="Enviar">
-        </form>"""
+        return render_template("login.html")
+
+
+@app.route('/profile/')
+@app.route('/profile/<string:name>')
+def dashboard(name=None):
+    if name is not None:
+        return render_template("dashboard.html", name=name)
+    else:
+        return redirect(url_for("login"))
 
 
 
