@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, request
 
 # para levantar el servidor podemos instalar la libreria python-dotenv,
 # creamos el archivo .env y en el las variables de entorno necesarias
@@ -24,13 +24,20 @@ def user(name=None, id=None):
     else:
         return 'Hola, por favor registrese'
 
-@app.route('/login/')
-@app.route('/login/<name>')
-def login(name=None):
-    if name is not None:
-        return redirect(url_for("user"))
+@app.route('/login/', methods=["GET","POST"])
+def login():
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        if username and password:
+            return redirect(url_for("user", name=username))
     else:
-        return "<h1>Ingrese su nombre</h1>"
+        return """<h1>Ingrese su nombre y contraseña</h1>
+        <form method="POST">
+            <input type="text" name="username">
+            <input type="password" name="password">
+            <input type="submit" value="Enviar">
+        </form>"""
 
 
 
