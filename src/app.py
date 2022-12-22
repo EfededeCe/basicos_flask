@@ -1,4 +1,5 @@
-from flask import Flask, redirect, url_for, request, render_template
+from flask import Flask, redirect, url_for, request, render_template,\
+    flash
 
 # para levantar el servidor podemos instalar la libreria python-dotenv,
 # creamos el archivo .env y en el las variables de entorno necesarias
@@ -6,6 +7,8 @@ from flask import Flask, redirect, url_for, request, render_template
 # de esta forma no es necesario poner el "if __name__(...)"
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "super-secreta!!"  # se usa para enviar los msg de flash 
+
 
 @app.route('/')
 def index():
@@ -30,17 +33,20 @@ def login():
         password = request.form["password"]
         if username and password:
             return redirect(url_for("dashboard", name=username))
-    else:
-        return render_template("login.html")
+        flash("Ingresa los datos correctamente.", "error") # envía msg y categoría
+    return render_template("login.html")
+
+def new_func():
+    return "error"
 
 
 @app.route('/profile/')
 @app.route('/profile/<string:name>')
 def dashboard(name=None):
     if name is not None:
+        flash(f"Bienvenidx {name}")
         return render_template("dashboard.html", name=name)
-    else:
-        return redirect(url_for("login"))
+    return redirect(url_for("login"))
 
 
 
