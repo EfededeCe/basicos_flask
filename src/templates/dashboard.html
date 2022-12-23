@@ -1,47 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for("static", filename="css/styles.css") }}">
-    <title>App Flask</title>
-</head>
-<body>
-    <div class="container">
-        <nav class="menu">
-            <img src="{{ url_for("static", filename="imgs/flask.png") }}" alt="Logo Flask" width="75px">
-            <ul class="menu-links">
-                <li> <a href="#">Inicio</a> </li>
-                <li> <a href="#">Usuarios</a> </li>
-                {% if name %}
-                    <li> <a href="#">{{ name }}</a> </li>
-                {% else %}
-                    <li> <a href="#">Login</a> </li>
-                {% endif %}
-                
+{% extends 'base.html' %}
 
-
-            </ul>
-        </nav>
-
-        {% with messages = get_flashed_messages() %}
-
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li class="success">{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
-        {% endwith %}
-
-        <main>
-            <h1>Bienvenidx a tu perfil {{ name }}</h1>
-        </main>
-    </div>
-
-    <script src="{{ url_for("static", filename="js/main.js") }}"></script>
-</body>
-</html>
+{% block content %}
+    <h1 class="category">Bienvenidx a tu perfil {{ name }}</h1>
+{% endblock content %}

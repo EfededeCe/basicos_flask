@@ -109,7 +109,8 @@ form button:hover {
 }
 .messages .success {
     background-color: rgb(92, 231, 92);
-    color: #fff;
+    color: rgb(19, 16, 87);
+    font-weight: bold;
 }
 .messages .info {
     background-color: rgb(92, 124, 231);
