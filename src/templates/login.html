@@ -5,15 +5,15 @@
 
         {{ form.csrf_token() }}
 
-        {{ form.username.label() }}
-        {{ form.username }}
+        {{ form.username.label(class_="label-form") }}
+        {{ form.username(class_="input-form") }}
 
         {% for error in form.username.errors  %}
             <li style="color: red; list-style: none;">{{ error}}</li>
         {% endfor %}
         
-        {{ form.password.label() }}
-        {{ form.password }}
+        {{ form.password.label(class_="label-form") }}
+        {{ form.password(class_="input-form") }}
         
         {% for error in form.password.errors  %}
             <li style="color: red; list-style: none;">{{ error}}</li>
