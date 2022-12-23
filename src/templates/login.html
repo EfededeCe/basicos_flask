@@ -1,11 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}           
-    <form method="POST">
-        <label for="username">Usuario</label>
+    <form method="POST" novalidate>
+
+        {{ form.csrf_token() }}
+
+        {{ form.username.label() }}
+        {{ form.username }}
+
+        {% for error in form.username.errors  %}
+            <li style="color: red; list-style: none;">{{ error}}</li>
+        {% endfor %}
+        
+        {{ form.password.label() }}
+        {{ form.password }}
+        
+        {% for error in form.password.errors  %}
+            <li style="color: red; list-style: none;">{{ error}}</li>
+        {% endfor %}
+        
+        {{ form.submit }}
+
+
+        <!-- <label for="username">Usuario</label>
         <input type="text" name="username" id="username" class="label-form">
         <label for="password">Contraseña</label>
         <input type="password" name="password" id="password" class="label-form">
-        <input type="submit" value="Enviar" class="input-form">
+        <input type="submit" value="Enviar" class="input-form"> -->
     </form>
 {% endblock content %}
