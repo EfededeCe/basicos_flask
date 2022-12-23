@@ -1,5 +1,5 @@
 from flask import Flask, redirect, url_for, request, render_template,\
-    flash
+    flash, session
 
 # para levantar el servidor podemos instalar la libreria python-dotenv,
 # creamos el archivo .env y en el las variables de entorno necesarias
@@ -32,6 +32,7 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
         if username and password:
+            session["username"] = username
             return redirect(url_for("dashboard", name=username))
         flash("Ingresa los datos correctamente.", "error") # envía msg y categoría
     return render_template("login.html")
@@ -44,10 +45,15 @@ def new_func():
 @app.route('/profile/<string:name>')
 def dashboard(name=None):
     if name is not None:
-        flash(f"Bienvenidx {name}")
+        flash(f"Bienvenidx {name}","success")
         return render_template("dashboard.html", name=name)
     return redirect(url_for("login"))
 
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for("login"))
 
 
 # if __name__ == "__main__":
